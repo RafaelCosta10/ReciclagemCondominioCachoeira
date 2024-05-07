@@ -1,36 +1,66 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <title>Formulário de Reciclagem</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script>
 function toggleMotivoField() {
     var resposta = document.querySelector('input[name="reciclagem"]:checked').value;
     var motivoField = document.getElementById('motivoField');
     if (resposta === 'Não') {
         motivoField.style.display = 'block';
+        document.getElementById('motivo').required = true;  // Torna o campo obrigatório se visível
     } else {
         motivoField.style.display = 'none';
+        document.getElementById('motivo').required = false; // Remove a obrigatoriedade se não visível
+    }
+}
+
+function onClickEnviar(event) {
+    event.preventDefault(); // Impede que o formulário seja enviado imediatamente
+
+    // Verifica se o formulário está válido
+    if (document.querySelector('form').checkValidity()) {
+        alert("Mensagem enviada com sucesso!");
+        location.reload();
+    } else {
+        // Força a validação e mostra mensagens de erro se necessário
+        document.querySelector('form').reportValidity();
     }
 }
 </script>
 </head>
-<body>
-    <form action="salvar.php" method="POST">
-        <label for="nome">Nome completo:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-3">Pesquisa sobre Reciclagem</h2>
+        <form class="border p-4 bg-white shadow">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome completo:</label>
+                <input type="text" id="nome" name="nome" class="form-control" required>
+            </div>
 
-        <label>Você costuma fazer reciclagem em sua residência?</label><br>
-        <input type="radio" id="sim" name="reciclagem" value="Sim" onchange="toggleMotivoField()" required>
-        <label for="sim">Sim</label><br>
-        <input type="radio" id="nao" name="reciclagem" value="Não" onchange="toggleMotivoField()" required>
-        <label for="nao">Não</label><br><br>
+            <div class="mb-3">
+                <label class="form-label">Você costuma fazer reciclagem em sua residência?</label>
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="sim" name="reciclagem" value="Sim" onchange="toggleMotivoField()" required>
+                        <label class="form-check-label" for="sim">Sim</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="nao" name="reciclagem" value="Não" onchange="toggleMotivoField()" required>
+                        <label class="form-check-label" for="nao">Não</label>
+                    </div>
+                </div>
+            </div>
 
-        <div id="motivoField" style="display:none;">
-            <label for="motivo">Qual o principal motivo que faça com que você não faça isso:</label><br>
-            <input type="text" id="motivo" name="motivo"><br><br>
-        </div>
+            <div id="motivoField" class="mb-3" style="display:none;">
+                <label for="motivo" class="form-label">Qual o principal motivo que faça com que você não faça isso:</label>
+                <input type="text" id="motivo" name="motivo" class="form-control">
+            </div>
 
-        <button type="submit">Enviar</button>
-    </form>
+            <button class="btn btn-primary" onclick="onClickEnviar(event)">Enviar</button>
+        </form>
+    </div>
 </body>
 </html>
