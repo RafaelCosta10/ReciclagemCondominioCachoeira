@@ -10,22 +10,19 @@ function toggleMotivoField() {
     var motivoField = document.getElementById('motivoField');
     if (resposta === 'Não') {
         motivoField.style.display = 'block';
-        document.getElementById('motivo').required = true;  // Torna o campo obrigatório se visível
+        document.getElementById('motivo').required = true;
     } else {
         motivoField.style.display = 'none';
-        document.getElementById('motivo').required = false; // Remove a obrigatoriedade se não visível
+        document.getElementById('motivo').required = false;
     }
 }
 
 function onClickEnviar(event) {
-    event.preventDefault(); // Impede que o formulário seja enviado imediatamente
+    event.preventDefault();
 
-    // Verifica se o formulário está válido
     if (document.querySelector('form').checkValidity()) {
-        alert("Mensagem enviada com sucesso!");
-        location.reload();
+        window.location.href = 'obrigado.html'; // Redireciona para a página de agradecimento
     } else {
-        // Força a validação e mostra mensagens de erro se necessário
         document.querySelector('form').reportValidity();
     }
 }
