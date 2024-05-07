@@ -1,0 +1,36 @@
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Formulário de Reciclagem</title>
+<script>
+function toggleMotivoField() {
+    var resposta = document.querySelector('input[name="reciclagem"]:checked').value;
+    var motivoField = document.getElementById('motivoField');
+    if (resposta === 'Não') {
+        motivoField.style.display = 'block';
+    } else {
+        motivoField.style.display = 'none';
+    }
+}
+</script>
+</head>
+<body>
+    <form action="salvar.php" method="POST">
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label>Você costuma fazer reciclagem em sua residência?</label><br>
+        <input type="radio" id="sim" name="reciclagem" value="Sim" onchange="toggleMotivoField()" required>
+        <label for="sim">Sim</label><br>
+        <input type="radio" id="nao" name="reciclagem" value="Não" onchange="toggleMotivoField()" required>
+        <label for="nao">Não</label><br><br>
+
+        <div id="motivoField" style="display:none;">
+            <label for="motivo">Qual o principal motivo que faça com que você não faça isso:</label><br>
+            <input type="text" id="motivo" name="motivo"><br><br>
+        </div>
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
